@@ -1,4 +1,0 @@
-biped_robot -> robot basic cylinders
-
-doublependulum_new -> given by Yousef, real robot leg
-
