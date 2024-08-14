@@ -1,0 +1,114 @@
+## pas de temps
+Ils sont à dt = 0.001[s], moi à 4*0.004 = 0.016[s], soit 16 fois plus...
+
+## Le modèle de friction
+la partie sign(q_dot)*(...) est une friction statique, donc non dépendante de la vitesse, et pourtant apparait dans le terme beta... ? Source :
+(#         print "staticFriction = ", - signOfStaticFriction * (beta * self.staticFriction + (1 - beta) * self.coulombContribution))
+
+## Physical possible values
+
+i0 = x[0]
+ke = x[1]
+r = x[2]
+klin = x[3]
+linearTransition = x[4]
+staticFriction = x[5]
+coulombFriction = x[6]
+(addedInertia = x[7]) ??
+
+Sould be : 
+i0 > 0 
+klin < ke ?? => kvis > 0
+ke in [0, 5]
+r in [0, 20]
+
+linearTransition > 0 
+coulombFriction > 0 
+staticFriction in [0, 0.6]
+coulombFriction < staticFriction ??
+
+Also :
+#Torque measures say that the ratio kt/r should be ~0.394. We'll make sure this is respected.
+tolerance = 0.05
+idealValue = 0.394
+value = ke/r
+sanction = 0
+if (abs(value - idealValue) < tolerance) :
+    sanction = 0
+elif (abs(value - idealValue) < 4*tolerance) :
+    sanction = abs(value - idealValue)*150
+else :
+    return 100000
+
+-> essayer d'expliquer les ??
+
+## Their best solution
+x = [1.55818308e-02, 1.51294795e+00, 4.39798614e+00, 1.63553529e+00, 8.09641650e-02, 2.03719639e-01, 1.20403543e-01, 4.07587229e-03]
+i0 = x[0]
+ke = x[1]
+r = x[2]
+klin = x[3]
+linearTransition = x[4]
+staticFriction = x[5]
+coulombFriction = x[6]
+addedInertia = x[7]
+
+kvis = (ke - klin)*ke/r
+coulombContribution = (1/(1 - math.exp(-1)))*(kvis * linearTransition - math.exp(-1)*staticFriction + coulombFriction)
+
+-> en fait ici ils n'ont pas obtenu un klin < ke => ceci explique pourquoi leur modèle est :
+friction = self.kvis * speed - signOfStaticFriction * (beta * self.staticFriction + (1 - beta) * self.coulombContribution)
+-> donc de signe opposé sur kvis !
+
+
+## Comparison with my model
+parameters = [k_tau, R, q_dot_s, tau_c, tau_s, c_v, motor_inertia]
+k_tau = ke 
+R = r
+q_dot_s = linearTransition
+tau_c = coulombContribution
+tau_s = staticFriction
+c_v = -kvis (pour leur kvis qui est négatif)
+motor_inertia = io
+Solution de Dynaban : 
+[1.51294795, 4.39798614, 0.080964165, 0.0665140867408596, 0.203719639, 0.04217117990939209, 0.0155818308]
+
+## heuristics
+Ils mesurent l'erreur uniquement sur la position !
+
+
+## Leurs mesures
+'command' est constante, soit 2800, soit -2800
+Ensuite on voit que le servo se met en route, sa vitesse commence à se stabiliser (oscille un peu quand même)
+La position évolue alors tranquilement. 
+En fait ils font plusieurs expériences en boucle ouverte, où ils augmentent juste progressivement 'command' (donc la tension)
+
+## Leur prédiction
+En fait, ils ont donc des mesures de x temps : [t, command, speed, position]
+Leur méthode est la suivante :
+    - prédire l'évolution du système avec [t, command] UNIQUEMENT 
+    - évaluer la prédiction avec les mesures réelles
+Fini.
+
+## Ma méthode 
+tension, courant, position, vitesse 
+
+-> tension fait apparaitre le R vs current
+-> je peux aussi prédire avec le courant et le modèle courant/couple de la datasheet
+-> valider sur la position ou la vitesse ? ou les deux ? -> possibilité de comparer
+
+Voici les tests à faire alors :
+    1. prediction sur tension, validation sur position
+    2. prediction sur tension, validation sur vitesse
+    3. prediction sur tension, validation sur position et vitesse
+
+    4. prediction sur courant, validation sur position
+    5. prediction sur courant, validation sur vitesse
+    6. prediction sur courant, validation sur position et vitesse
+
+    7. prediction sur modèle datasheet, validation sur position
+    8. prediction sur modèle datasheet, validation sur vitesse
+    9. prediction sur modèle datasheet, validation sur position et vitesse
+
+Objectif : trouver un moyen de comparer les résultats pour chaque méthode. 
+Est-ce qu'on converge vers la même solution pour chaque méthode ?

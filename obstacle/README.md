@@ -1,16 +1,30 @@
-Create a virtual environment :
+## Setup and Usage Instructions
+
+### 1. Create a Virtual Environment
+
+To create a virtual environment, run the following commands:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the required dependencies in the virtual environment :
+### 2. Install Dependencies
 
-`pip install -r requirements.txt`
+With the virtual environment activated, install the required dependencies:
 
-Run the script:
 ```bash
-python obstacle.py 
+pip install -r requirements.txt
 ```
 
-The constants.py file contains the geometry parameters for the obstacle ellipsoid. The actual orientation is chosen to have an obstacle that concretize into a real compact obstacle, easy to be 3D-printed.
+### 3. Run the Script
+
+Execute the script using the command:
+
+```bash
+python obstacle.py
+```
+
+### Configuration
+
+The `constants.py` file contains the geometry parameters for the obstacle ellipsoid. The orientation is designed to produce a compact obstacle, making it suitable for 3D printing.

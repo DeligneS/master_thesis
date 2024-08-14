@@ -1,0 +1,6 @@
+Folders actually used:
+
+- calibration
+- chirp
+- PWM_processed
+

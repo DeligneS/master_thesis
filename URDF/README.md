@@ -18,7 +18,7 @@ The goal is to build a URDF file of the robot from FreeCAD, where it is original
 
 For a hands-on tutorial, refer to this [YouTube video](https://www.youtube.com/watch?v=C8oK4uUmbRw&t=979s&pp=ygUQb25zaGFwZSB0byByb2JvdA%3D%3D).
 
-At the end of this process, the robot.urdf file is created with the desired assembly. One last step is to change each "package:///" occurences in the robot.urdf file by your chosen folder name.
+At the end of this process, the robot.urdf file is created with the desired assembly. One last step is to change each "package:///" occurences in the robot.urdf file by your chosen folder name (control find -> replace all).
 
 ## Other Possibilities
 

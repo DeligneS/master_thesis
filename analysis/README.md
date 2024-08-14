@@ -1,9 +1,3 @@
-Create a virtual environment :
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
+# Analysis
 
-Install the required dependencies in the virtual environment :
-
-`pip install -r requirements.txt`
+The analysis folder contains all the scripts and codes used to generate the analysis for the project. I'm not sure it's super relevant to go deeper in this folder, as it was to output my figures.

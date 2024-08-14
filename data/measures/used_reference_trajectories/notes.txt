@@ -1,9 +1,0 @@
-## LabView integration
-
-Les files sont envoyés, LV prend les 5 premières colonnes (t, q_1l, q1_r, q2_l, q2_r) -> (t, M1, M2, M3, M4)
-
-## Current control files
-current_ref files
- - sinus_short is a safe reference for every motors
- - constant is a reference to be applied ONLY on the free motor (otherwise brake the robot...)
- 

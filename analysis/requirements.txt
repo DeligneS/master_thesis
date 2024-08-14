@@ -1,5 +1,0 @@
-cma
-numpy
-pandas
-matplotlib
-ipykernel
