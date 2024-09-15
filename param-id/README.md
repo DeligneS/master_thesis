@@ -21,3 +21,15 @@ pip install -r requirements.txt
 
 ### For Julia scripts
 
+Open your Julia REPL and activate the environment
+
+```bash
+]
+activate .
+```
+
+Then execute scripts with:
+
+```julia
+include("path_to_your_script.jl")
+```

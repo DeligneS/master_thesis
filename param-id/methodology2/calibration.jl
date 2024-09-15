@@ -1,13 +1,4 @@
 using JuliaSimModelOptimizer
-# using OrdinaryDiffEq
-# using CSV, DataFrames
-# using IfElse: ifelse
-# using Statistics
-# using StatsPlots
-# using ModelingToolkit
-
-# using DataSets
-# using Plots
 
 include("../../URDF/model_urdf.jl")
 # # include("model_st.jl")

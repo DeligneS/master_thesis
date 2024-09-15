@@ -1,9 +1,9 @@
 # Parameter identification
 
-The parameter calibration is done using the [JuliaSimModelOptimizer](https://help.juliahub.com/jsmo/stable/) library, a component the [JuliaSim](https://juliahub.com/products/juliasim) suite developed by [JuliaHub Inc](https://juliahub.com). For further information, I recommend the following [video](https://www.youtube.com/watch?v=TkmpICaFDrM).
+The parameter calibration is done using the [JuliaSimModelOptimizer](https://help.juliahub.com/jsmo/stable/) library, a component of the [JuliaSim](https://juliahub.com/products/juliasim) suite developed by [JuliaHub Inc](https://juliahub.com). For further information, I recommend the following [video](https://www.youtube.com/watch?v=TkmpICaFDrM). The installation of this package is detailled on their website.
 
 The main Julia file is 'calibration.jl'.
-A local Julia environment is required as JuliaSimModelOptimizer is compatible with old version of ModelingToolkit. For this reason, other ways of defining the model is followed in file ''.
+A local Julia environment is required as JuliaSimModelOptimizer is compatible with old version of ModelingToolkit. For this reason, other ways of defining the model is followed in file 'model_st_tanh.jl' for instance. Other models can be used in the same way.
 
 ## Other thoughts
 
